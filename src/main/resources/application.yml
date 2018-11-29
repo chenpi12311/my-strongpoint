@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/rogues?useUnicode=yes&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: root
+    dbcp2:
+      min-idle: 1
+      max-open-prepared-statements: 10
+      max-idle: 10
+      time-between-eviction-runs-millis: 60000
