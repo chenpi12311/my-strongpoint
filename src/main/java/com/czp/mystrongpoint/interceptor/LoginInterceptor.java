@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,10 @@ public class LoginInterceptor implements HandlerInterceptor {
         String uri = request.getRequestURI();
         String remoteHost = request.getRemoteHost();
         log.info("Request url: [{}] from [{}]", uri, remoteHost);
+        // 非admin路径不拦截
+        if (!StringUtils.startsWith(uri, "/admin")) {
+            return true;
+        }
         HttpSession session = request.getSession();
         if (Objects.isNull(session)
                 || Objects.isNull(session.getAttribute(WebConstants.WEB_LOGIN_USER))) {
@@ -36,14 +41,14 @@ public class LoginInterceptor implements HandlerInterceptor {
             String uid = getCookieId(request);
             if (Objects.isNull(uid)) {
                 // 如果cookie为空
-                response.sendRedirect(request.getContextPath() + "/login");
+                response.sendRedirect(request.getContextPath() + "/index");
                 return false;
             }
             // cookieId不为空，用cookieId获取数据库中的用户
             Rouge rouge = rougeService.getRouge(uid);
             if (Objects.isNull(rouge)) {
                 // 无效用户
-                response.sendRedirect(request.getContextPath() + "/login");
+                response.sendRedirect(request.getContextPath() + "/index");
                 return false;
             }
             // 设置session

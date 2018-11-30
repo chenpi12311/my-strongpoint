@@ -16,4 +16,10 @@ public class RougeServiceImpl implements RougeService {
     public Rouge getRouge(String id) {
         return rougeBiz.getRouge(id);
     }
+
+    @Override
+    public Rouge getRougeByEmail(String email) {
+        return rougeBiz.getRouge(Rouge.EMAIL, email, String.class);
+    }
+
 }
