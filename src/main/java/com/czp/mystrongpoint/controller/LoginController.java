@@ -33,7 +33,8 @@ public class LoginController {
                         @RequestParam(required = false) boolean rememberMe, HttpServletRequest request, Model model) {
         Rouge rouge = rougeService.getRougeByEmail(email);
         // 添加密码的校验
-        if (Objects.isNull(rouge)) {
+        if (Objects.isNull(rouge)
+                || !Objects.equals(rouge.getPassword(), password)) {
             logger.warn("This rouge [{}] is invalid.");
             return "login";
         }

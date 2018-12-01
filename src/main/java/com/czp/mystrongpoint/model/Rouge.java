@@ -12,6 +12,7 @@ public class Rouge extends BaseModel {
     public static final String GENDER = "gender";
     public static final String CELLPHONE = "cellphone";
     public static final String EMAIL = "email";
+    public static final String PASSWORD = "password";
     public static final String PROVINCE = "province";
     public static final String CITY = "city";
     public static final String DISTRICT = "district";
@@ -29,6 +30,9 @@ public class Rouge extends BaseModel {
 
     @Column
     private String email;
+
+    @Column
+    private String password;
 
     @Column
     private String province;
