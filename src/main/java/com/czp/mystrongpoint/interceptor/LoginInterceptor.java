@@ -31,7 +31,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         String remoteHost = request.getRemoteHost();
         log.info("Request url: [{}] from [{}]", uri, remoteHost);
         // 非admin路径不拦截
-        if (!StringUtils.startsWith(uri, "/admin")) {
+        if (!StringUtils.startsWith(uri, "/rouges")) {
             return true;
         }
         HttpSession session = request.getSession();
