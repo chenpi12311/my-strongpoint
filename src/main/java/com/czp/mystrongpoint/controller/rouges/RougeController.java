@@ -1,12 +1,24 @@
 package com.czp.mystrongpoint.controller.rouges;
 
-import org.springframework.stereotype.Controller;
+import com.czp.mystrongpoint.model.Rouge;
+import com.czp.mystrongpoint.service.RougeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import reactor.core.publisher.Flux;
+import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
-@Controller
-@RequestMapping("/rouges")
+@RestController
+@RequestMapping(path = "/rouge")
 public class RougeController {
 
+    @Autowired
+    private RougeService rougeService;
+
+    @GetMapping(path = "/{id}")
+    public Mono<Rouge> getRouge(@PathVariable(name="id") String rougeId) {
+        return Mono.just(rougeService.getRouge(rougeId));
+    }
 
 }
